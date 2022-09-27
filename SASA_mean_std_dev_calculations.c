@@ -29,7 +29,6 @@ double variance_SASA;
 double std_dev_SASA;
 double std_error_mean_SASA;
 
-/*void READ_SASA_mean(void);*/
 void READ_SASA_values(void);
 
 int main(void)
@@ -40,8 +39,6 @@ int main(void)
         int i,j;
 
         chdir(workingdir);
-
-        /*READ_SASA_mean();*/
 
         READ_SASA_values();
 
@@ -76,30 +73,6 @@ int main(void)
 
         return 0;
 }
-
-
-
-/*void READ_SASA_mean(void)
-{
-        FILE *input_SASA_mean;
-
-        int i = 0;
-        char s[64];
-
-        sprintf(s, "sasa_interface_NS1_mean.dat");
-
-        input_SASA_mean = fopen(s, "r");
-
-        if(input_SASA_mean == NULL)
-        {
-                printf("Fail to open dat file: %s\nQuit.\n",s);
-                exit(0);
-        }
-
-        fscanf(input_SASA_mean, "%lf", &RMSD_mean);
-
-        fclose(input_SASA_mean);
-}*/
 
 
 void READ_SASA_values(void)
