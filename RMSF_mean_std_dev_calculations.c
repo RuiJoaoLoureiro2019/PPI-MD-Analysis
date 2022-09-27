@@ -20,17 +20,16 @@ char rootdir[]="/scratch/rloureiro";
 char ss[]="5nt2_NS1-TRIM25/run-01";
 //==============================================================
 
-double RMSD_sum;
-double RMSD_mean;
-double RMSD[RES];
-double square_diff_RMSD[RES];
-double sum_square_diff_RMSD;
-double variance_RMSD;
-double std_dev_RMSD;
-double std_error_mean_RMSD;
+double RMSF_sum;
+double RMSF_mean;
+double RMSF[RES];
+double square_diff_RMSF[RES];
+double sum_square_diff_RMSF;
+double variance_RMSF;
+double std_dev_RMSF;
+double std_error_mean_RMSF;
 
-/*void READ_RMSD_mean(void);*/
-void READ_RMSD_values(void);
+void READ_RMSF_values(void);
 
 int main(void)
 {
@@ -41,97 +40,71 @@ int main(void)
 
 	chdir(workingdir);
 	
-	/*READ_RMSD_mean();*/
-	
-	READ_RMSD_values();
+	READ_RMSF_values();
 
-        RMSD_sum = 0.0;
+        RMSF_sum = 0.0;
 
-        RMSD_mean = 0.0;
+        RMSF_mean = 0.0;
 
         for(i = 0; i < RES; i++)
         {
-                RMSD_sum = RMSD_sum + RMSD[i];
+                RMSF_sum = RMSF_sum + RMSF[i];
         }
 
-	RMSD_mean = RMSD_sum/(double)RES;
+	RMSF_mean = RMSF_sum/(double)RES;
 		
-	sum_square_diff_RMSD = 0.0;
+	sum_square_diff_RMSF = 0.0;
 	
 	for(i = 0; i < RES; i++)
 	{
-		square_diff_RMSD[i] =(RMSD[i] - RMSD_mean) * (RMSD[i] - RMSD_mean);
-		sum_square_diff_RMSD = sum_square_diff_RMSD + square_diff_RMSD[i];
+		square_diff_RMSF[i] =(RMSF[i] - RMSF_mean) * (RMSF[i] - RMSF_mean);
+		sum_square_diff_RMSF = sum_square_diff_RMSF + square_diff_RMSF[i];
 	}
 	
-	variance_RMSD = sum_square_diff_RMSD/(double)RES;
-	std_dev_RMSD = sqrt(variance_RMSD);
-	std_error_mean_RMSD = std_dev_RMSD/sqrt((double)RES);
+	variance_RMSF = sum_square_diff_RMSF/(double)RES;
+	std_dev_RMSF = sqrt(variance_RMSF);
+	std_error_mean_RMSF = std_dev_RMSF/sqrt((double)RES);
 	
 	chdir(writingdir);
 	
 	output = fopen("rmsf_per_residue_TRIM25_interface_mean_std_dev.dat", "w");
 	
-	fprintf(output,"%lf      %lf      %lf\n", RMSD_mean, std_dev_RMSD, std_error_mean_RMSD);
+	fprintf(output,"%lf      %lf      %lf\n", RMSF_mean, std_dev_RMSF, std_error_mean_RMSF);
 		
 	return 0;
 }
 
 
-
-/*void READ_RMSD_mean(void)
+void READ_RMSF_values(void)
 {
-	FILE *input_RMSD_mean;
-	
-	int i = 0;
-	char s[64];
-	
-	sprintf(s, "rmsd_interface_NS1_mean.dat");
-
-	input_RMSD_mean = fopen(s, "r");
-	
-	if(input_RMSD_mean == NULL)	
-	{
-		printf("Fail to open dat file: %s\nQuit.\n",s);
-		exit(0);
-	}
-		
-	fscanf(input_RMSD_mean, "%lf", &RMSD_mean);
-	
-	fclose(input_RMSD_mean);
-}*/
-
-
-void READ_RMSD_values(void)
-{
-	FILE *input_RMSD_values;
+	FILE *input_RMSF_values;
 	
 	int j, r;
-	double t, rmsd;
+	double t, rmsf;
 	char s[64];
 	
 	sprintf(s, "rmsf_per_residue_TRIM25_interface.dat");
 		
-	input_RMSD_values = fopen(s, "r");
+	input_RMSF_values = fopen(s, "r");
 		
-	if(input_RMSD_values == NULL)	
+	if(input_RMSF_values == NULL)	
 	{
 		printf("Fail to open dat file: %s\nQuit.\n",s);
 		exit(0);
 	}
 	
 	j = 0;
-	while(!feof(input_RMSD_values))
+	while(!feof(input_RMSF_values))
 	{
-		if (fscanf(input_RMSD_values, "%lf   %lf", &t, &rmsd) > 0)
+		if (fscanf(input_RMSF_values, "%lf   %lf", &t, &rmsf) > 0)
 		{
 			if (1)
 			{
-				RMSD[j] = rmsd;
+				RMSF[j] = rmsf;
 				j++;
 			}
 		}
 	}
 			
-	fclose(input_RMSD_values);
+	fclose(input_RMSF_values);
 }
