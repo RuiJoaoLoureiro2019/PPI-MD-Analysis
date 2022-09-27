@@ -6,6 +6,8 @@
 #include <sys/stat.h>
 #include <time.h>
 
+//Code for computing the mean interfacial area and the corresponding standard error of a protein-protein complex over a MD simulation
+
 //=============Parameters you might want to change===============
 
 #define CONF   (1001)
