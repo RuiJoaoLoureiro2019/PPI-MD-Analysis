@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include <time.h>
 
-//Code for computing the mean and standard deviation of the RMSD of a protein-protein complex over a MD simulation
+//Code for computing the mean RMSD and the corresponding standard error of a protein-protein complex over a MD simulation
 
 //=============Parameters you might want to change===============
 
