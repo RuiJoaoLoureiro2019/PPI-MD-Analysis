@@ -29,7 +29,6 @@ double variance_RMSD;
 double std_dev_RMSD;
 double std_error_mean_RMSD;
 
-/*void READ_RMSD_mean(void);*/
 void READ_RMSD_values(void);
 
 int main(void)
@@ -40,8 +39,6 @@ int main(void)
 	int i,j;
 
 	chdir(workingdir);
-	
-	/*READ_RMSD_mean();*/
 	
 	READ_RMSD_values();
 
@@ -77,29 +74,6 @@ int main(void)
 	return 0;
 }
 
-
-
-/*void READ_RMSD_mean(void)
-{
-	FILE *input_RMSD_mean;
-	
-	int i = 0;
-	char s[64];
-	
-	sprintf(s, "rmsd_interface_NS1_mean.dat");
-
-	input_RMSD_mean = fopen(s, "r");
-	
-	if(input_RMSD_mean == NULL)	
-	{
-		printf("Fail to open dat file: %s\nQuit.\n",s);
-		exit(0);
-	}
-		
-	fscanf(input_RMSD_mean, "%lf", &RMSD_mean);
-	
-	fclose(input_RMSD_mean);
-}*/
 
 
 void READ_RMSD_values(void)
