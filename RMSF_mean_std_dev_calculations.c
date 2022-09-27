@@ -6,6 +6,8 @@
 #include <sys/stat.h>
 #include <time.h>
 
+//Code for computing the mean and standard deviation of the RMSF of a protein-protein interface over a MD simulation
+
 //=============Parameters you might want to change===============
 
 #define RES   (24)
